@@ -27,17 +27,16 @@ type GetNewsArticlesResponse = AxiosResponse<{
     totalResults: number;
 }>;
 
+
+
+
+
 export const getNewsArticles = async (
     params: NewsArticleParams
 ): Promise<GetNewsArticlesResponse> => {
     const response = await axios.get<GetNewsArticlesAPIResponse>(
-        "https://newsapi.org/v2/everything",
-        {
-            params,
-            headers: {
-                "X-Api-Key": "6a91b5075b4a4fe9b1055e7a59bb5ed6",
-            },
-        }
+        '/api/news',  // This will now be proxied correctly
+        { params }
     );
 
     const articles = response.data.articles.map(
@@ -46,6 +45,7 @@ export const getNewsArticles = async (
 
     return { ...response, data: { ...response.data, articles } };
 };
+
 
 export const useGetNewsArticlesAPI = (
     params: NewsArticleParams,
